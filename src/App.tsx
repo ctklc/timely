@@ -1,6 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import ErrorBoundary from './components/errorBoundary';
+import ErrorBoundary from './shared/errorBoundary';
+import CalendarDashboard from './pages/calendarDashboard';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +23,9 @@ function App() {
       */}
       <CssBaseline />
       <ErrorBoundary>
-        <QueryClientProvider client={queryClient}>Timely</QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <CalendarDashboard />
+        </QueryClientProvider>
       </ErrorBoundary>
     </>
   );
