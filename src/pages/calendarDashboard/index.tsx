@@ -25,7 +25,7 @@ export default function CalendarDashboard() {
     <Container maxWidth="xl" sx={{ py: 3, flexGrow: 1, height: '100vh' }}>
       <Box sx={{ justifyContent: 'center', height: '100%', gap: 2 }}>
         {isLoading ? (
-          <CircularProgress />
+          <CircularProgress data-testid="CircularProgress" />
         ) : (
           data?.map(({ id, name, time_slots: timeSlots }) => (
             <Box

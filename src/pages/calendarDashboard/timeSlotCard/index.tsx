@@ -25,6 +25,7 @@ function TimeSlotCard({
       sx={[
         selected ? { backgroundColor: '#d5f8d1' } : { backgroundColor: 'unset' }
       ]}
+      data-testid="TimeSlotCardButton"
     >
       {`${format(new Date(data.start_time), 'HH:mm')} - ${format(
         new Date(data.end_time),
