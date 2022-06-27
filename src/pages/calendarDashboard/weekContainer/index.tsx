@@ -3,7 +3,8 @@ import { Fragment, memo, MouseEventHandler, useMemo } from 'react';
 import isWithinInterval from 'date-fns/isWithinInterval';
 import addMilliseconds from 'date-fns/addMilliseconds';
 import isEqual from 'date-fns/isEqual';
-import StyledBox from '../../../shared/styled/box';
+import Box from '../../../shared/styled/box';
+import Paper from '../../../shared/styled/paper';
 import TimeSlotCard from '../timeSlotCard';
 import { TimeSlot } from '../../../api/types';
 
@@ -48,7 +49,7 @@ export function areDatesOverlapped(
 
 export type ReservedSlots = Record<number, TimeSlot | undefined>;
 
-export type DailySlotsProps = {
+export type WeekContainerProps = {
   companyId: number;
   reservedTimeSlots: ReservedSlots;
   timeSlots: TimeSlot[];
@@ -58,12 +59,12 @@ export type DailySlotsProps = {
   ) => MouseEventHandler<HTMLButtonElement>;
 };
 
-function DailySlots({
+function WeekContainer({
   companyId,
   reservedTimeSlots,
   timeSlots,
   handleSlotClick
-}: DailySlotsProps) {
+}: WeekContainerProps) {
   const reservedTimeSlot = reservedTimeSlots[companyId];
   const groupedTimeSlots = useMemo(
     () => Object.entries(groupByDays(timeSlots)),
@@ -101,19 +102,27 @@ function DailySlots({
   };
 
   return (
-    <>
+    <Paper
+      sx={{
+        height: '100%',
+        overflowY: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2
+      }}
+    >
       {groupedTimeSlots.map(([day, slots]) => (
-        <StyledBox key={day} sx={{ flexDirection: 'column', gap: 3 }}>
+        <Box key={day} sx={{ flexDirection: 'column', gap: 3 }}>
           <Typography variant="h6" align="center">
             {getDayName(day)}
           </Typography>
-          <StyledBox sx={{ flexDirection: 'column', gap: 1 }}>
+          <Box sx={{ flexDirection: 'column', gap: 1 }}>
             {slots?.map(renderTimeSlot)}
-          </StyledBox>
-        </StyledBox>
+          </Box>
+        </Box>
       ))}
-    </>
+    </Paper>
   );
 }
 
-export default memo(DailySlots);
+export default memo(WeekContainer);
